@@ -84,6 +84,14 @@ export const achievements = [
   { title: 'HackHazards ’25', text: 'Top 100 of ~800 submissions' },
 ]
 
+export const blog = [
+  {
+    title: 'ReadMeAI: An AI-powered README Generator for Developers',
+    text: 'Docker blog · upload code, describe it, get editable Markdown',
+    url: 'https://www.docker.com/blog/readmeai-an-ai-powered-readme-generator-for-developers/',
+  },
+]
+
 export const skills = [
   { group: 'Backend', items: ['Go', 'Fiber', 'REST', 'JWT', 'Job queues'], core: true },
   { group: 'AI', items: ['Python', 'LLM APIs', 'Embeddings / RAG', 'Langflow'], core: true },

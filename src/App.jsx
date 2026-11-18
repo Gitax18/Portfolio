@@ -4,6 +4,7 @@ import {
   experience,
   projects,
   achievements,
+  blog,
   skills,
   community,
 } from './data'
@@ -15,6 +16,7 @@ const sections = [
   ['experience', 'Experience'],
   ['projects', 'Projects'],
   ['achievements', 'Achievements'],
+  ['blog', 'Blog'],
   ['skills', 'Skills'],
   ['community', 'Community'],
   ['contact', 'Contact'],
@@ -155,6 +157,10 @@ export default function App() {
 
         <Section id="achievements" title="Hackathons & achievements">
           <Rows items={achievements} />
+        </Section>
+
+        <Section id="blog" title="Blog">
+          <Rows items={blog} />
         </Section>
 
         <Section id="skills" title="Skills">
