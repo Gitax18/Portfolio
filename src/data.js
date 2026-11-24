@@ -38,14 +38,9 @@ export const projects = [
     title: 'Readmely',
     description: 'Turns a codebase into a README, diagrams and AI context. Go API, Python AI service, Postgres job queue.',
     tags: ['Go', 'Python', 'PostgreSQL', 'pgvector'],
+    repo: 'https://github.com/Gitax18/readmely',
+    live: 'https://readmely.gitanshu.me',
     status: 'In development',
-  },
-  {
-    id: 'docomate',
-    title: 'Docomate AI',
-    description: 'README generator and chat for your codebase. Top 100 at HackHazards ’25, built solo.',
-    tags: ['NestJS', 'React', 'MongoDB', 'Groq'],
-    status: 'Hackathon',
   },
   {
     id: 'salon',
@@ -67,6 +62,7 @@ export const projects = [
     title: 'Social Sync AI',
     description: 'One description in, posts for every social platform out. Built in 24 hours.',
     tags: ['Next.js', 'Express', 'MongoDB', 'Groq'],
+    repo: 'https://github.com/Gitax18/social-sync-ai',
     status: 'Hackathon',
   },
   {
