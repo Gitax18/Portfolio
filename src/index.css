@@ -8,6 +8,7 @@
   --cobalt: #2f4fd8;
   --cobalt-text: #ffffff;
   --signal: #f0a21a;
+  --error: #c2410c;
 
   --font: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --wide: 125%;
@@ -26,6 +27,7 @@
     --cobalt: #8ea2ff;
     --cobalt-text: #0f1730;
     --signal: #f5b23d;
+    --error: #fb923c;
     color-scheme: dark;
   }
 }
@@ -294,6 +296,40 @@ h1 span { display: block; }
 
 /* Contact */
 .contact-line { font-size: 1.3125rem; font-weight: 600; line-height: 1.35; max-width: 30rem; margin-bottom: 1.25rem; }
+.contact-alt { margin: 2rem 0 0.75rem; font-size: 0.9375rem; }
+
+.contact-form { display: grid; gap: 1rem; max-width: 36rem; }
+.field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field { display: grid; gap: 6px; font-size: 0.9375rem; font-weight: 600; }
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius);
+}
+.field textarea { resize: vertical; min-height: 8rem; }
+.field input:focus-visible,
+.field textarea:focus-visible { outline: none; border-color: var(--cobalt); }
+.botcheck { display: none; }
+
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.contact-form .btn { cursor: pointer; font-family: inherit; }
+.contact-form .btn:disabled { opacity: 0.7; cursor: progress; }
+.form-status { font-size: 0.9375rem; font-weight: 550; }
+.form-error { color: var(--error); }
+.form-sent {
+  max-width: 36rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 3px solid var(--cobalt);
+  border-radius: var(--radius);
+}
 
 /* Buttons */
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -333,6 +369,7 @@ h1 span { display: block; }
   .nav { padding: 10px 16px; }
   .footer { padding-inline: 16px; }
   .row { grid-template-columns: 1fr; gap: 4px; }
+  .field-pair { grid-template-columns: 1fr; }
   .featured { padding: 1.25rem; }
   .pipeline { padding: 1.25rem 1rem 1rem; }
 }

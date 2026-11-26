@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { profile, pipeline, experience, projects, achievements, blog, skills, community } from './data'
 import { ArrowIcon, GithubIcon, LinkedinIcon, ResumeIcon } from './icons'
 
@@ -86,6 +87,77 @@ function Pipeline() {
       </ol>
       <figcaption>The layers I build, from the first request to deployment.</figcaption>
     </figure>
+  )
+}
+
+/* Posts to Web3Forms, which emails each submission to the key's owner. */
+function ContactForm() {
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [error, setError] = useState('')
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const form = e.currentTarget
+    if (!profile.contactFormKey) {
+      setStatus('error')
+      setError('The form isn’t set up yet. Please reach me on LinkedIn for now.')
+      return
+    }
+
+    setStatus('sending')
+    const data = new FormData(form)
+    data.append('access_key', profile.contactFormKey)
+    data.append('subject', `Portfolio message from ${data.get('name')}`)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      const json = await res.json()
+      if (!json.success) throw new Error(json.message)
+      form.reset()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+      setError('Your message didn’t send. Please try again, or reach me on LinkedIn.')
+    }
+  }
+
+  if (status === 'sent') {
+    return (
+      <p className="form-status form-sent" role="status">
+        Thanks, your message is on its way. I’ll get back to you by email.
+      </p>
+    )
+  }
+
+  return (
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <div className="field-pair">
+        <label className="field">
+          <span>Name</span>
+          <input name="name" type="text" autoComplete="name" required maxLength={100} />
+        </label>
+        <label className="field">
+          <span>Email</span>
+          <input name="email" type="email" autoComplete="email" required maxLength={200} />
+        </label>
+      </div>
+      <label className="field">
+        <span>Message</span>
+        <textarea name="message" rows={5} required maxLength={5000} />
+      </label>
+      {/* Spam trap: hidden from people, filled in by bots. */}
+      <input type="checkbox" name="botcheck" className="botcheck" tabIndex={-1} autoComplete="off" />
+      <div className="form-foot">
+        <button className="btn btn-primary" type="submit" disabled={status === 'sending'}>
+          {status === 'sending' ? 'Sending…' : 'Send message'}
+        </button>
+        {status === 'error' && (
+          <p className="form-status form-error" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+    </form>
   )
 }
 
@@ -248,7 +320,9 @@ export default function App() {
         </Section>
 
         <Section id="contact" title="Contact">
-          <p className="contact-line">Want to talk about backend or AI work? Reach me on LinkedIn or GitHub, or read my resume.</p>
+          <p className="contact-line">Want to talk about backend or AI work? Send me a message.</p>
+          <ContactForm />
+          <p className="contact-alt muted">Or find me here:</p>
           <div className="actions">
             <a className="btn btn-primary" href={profile.linkedin} target="_blank" rel="noreferrer">
               <LinkedinIcon /> LinkedIn

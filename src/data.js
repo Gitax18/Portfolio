@@ -8,6 +8,8 @@ export const profile = {
   github: 'https://github.com/Gitax18',
   linkedin: 'https://www.linkedin.com/in/gitanshu-sankhla',
   resume: 'https://drive.google.com/file/d/1lFvSMgc5k-WOewiOgT6b6ohYjuErJUlm/view',
+  // Web3Forms access key for the contact form, read from VITE_WEB3FORMS_KEY at build time.
+  contactFormKey: import.meta.env.VITE_WEB3FORMS_KEY ?? '',
   about:
     'I build Go backends and AI products: REST APIs on Postgres, job queues, and LLM pipelines with RAG and structured output. I’m studying for an M.Sc. IT at Dhirubhai Ambani University (formerly DA-IICT) and building Readmely.',
 }
