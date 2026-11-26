@@ -1,5 +1,5 @@
 import { profile, pipeline, experience, projects, achievements, blog, skills, community } from './data'
-import { ArrowIcon, GithubIcon, LinkedinIcon } from './icons'
+import { ArrowIcon, GithubIcon, LinkedinIcon, ResumeIcon } from './icons'
 
 const YEAR = new Date().getFullYear()
 
@@ -125,6 +125,9 @@ export default function App() {
               <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
                 <GithubIcon /> GitHub
               </a>
+              <a className="btn" href={profile.resume} target="_blank" rel="noreferrer">
+                <ResumeIcon /> Resume
+              </a>
             </div>
           </div>
           <Pipeline />
@@ -245,13 +248,16 @@ export default function App() {
         </Section>
 
         <Section id="contact" title="Contact">
-          <p className="contact-line">Want to talk about backend or AI work? Reach me on LinkedIn or GitHub.</p>
+          <p className="contact-line">Want to talk about backend or AI work? Reach me on LinkedIn or GitHub, or read my resume.</p>
           <div className="actions">
             <a className="btn btn-primary" href={profile.linkedin} target="_blank" rel="noreferrer">
               <LinkedinIcon /> LinkedIn
             </a>
             <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
               <GithubIcon /> GitHub
+            </a>
+            <a className="btn" href={profile.resume} target="_blank" rel="noreferrer">
+              <ResumeIcon /> Resume
             </a>
           </div>
         </Section>

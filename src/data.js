@@ -7,6 +7,7 @@ export const profile = {
   avatar: 'https://avatars.githubusercontent.com/u/77137963?v=4',
   github: 'https://github.com/Gitax18',
   linkedin: 'https://www.linkedin.com/in/gitanshu-sankhla',
+  resume: 'https://drive.google.com/file/d/1lFvSMgc5k-WOewiOgT6b6ohYjuErJUlm/view',
   about:
     'I build Go backends and AI products: REST APIs on Postgres, job queues, and LLM pipelines with RAG and structured output. I’m studying for an M.Sc. IT at Dhirubhai Ambani University (formerly DA-IICT) and building Readmely.',
 }
