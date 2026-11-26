@@ -114,16 +114,16 @@ export const community = [
   {
     title: 'Programming Club, Dhirubhai Ambani University',
     role: 'Batch representative',
-    text: 'Contribute to the BlindC event, supervise intra-college competitive programming contests, and help run the club’s contests and events.',
+    text: 'During my M.Sc. IT at DAU, I contribute to the BlindC event, supervise intra-college competitive programming contests, and help run the club’s contests and events.',
   },
   {
-    title: 'Microsoft Student Technical Club, Dhirubhai Ambani University',
+    title: 'Microsoft Student Technical Club (MSTC), Dhirubhai Ambani University',
     role: 'Member',
-    text: 'Problem setter and project judge for the RepoReboot ’26 hackathon. Mentor juniors and contribute to club activities.',
+    text: 'Also at DAU during my M.Sc. IT. I was a problem setter and project judge for the RepoReboot ’26 hackathon, and I mentor juniors and contribute to club activities.',
   },
   {
     title: 'GDG Jodhpur',
     role: 'Volunteer',
-    text: 'Active community member. Volunteered backstage at DevFest ’25 Jodhpur: managed registrations, helped plan the event, and coordinated on-site tasks on the day.',
+    text: 'Active member of the developer community in Jodhpur. I volunteered backstage at DevFest ’25 Jodhpur, where I managed registrations, helped plan the event, and coordinated on-site tasks on the day.',
   },
 ]
