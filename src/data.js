@@ -11,7 +11,7 @@ export const profile = {
   // Web3Forms access key for the contact form, read from VITE_WEB3FORMS_KEY at build time.
   contactFormKey: import.meta.env.VITE_WEB3FORMS_KEY ?? '',
   about:
-    'I build Go backends and AI products. I’m doing an M.Sc. IT at Dhirubhai Ambani University and building Readmely.',
+    'I build REST and gRPC services in Go, Postgres-backed job queues, and LLM pipelines with RAG and structured output. I ship them in Docker on AWS and GCP.',
 }
 
 // The hero diagram: a request travelling through the layers I build.
@@ -45,14 +45,13 @@ export const projects = [
     id: 'readmely',
     title: 'Readmely',
     featured: true,
-    description: 'Turns a GitHub repository into a README, architecture and ER diagrams, and an AI context pack.',
+    description: 'Give it a GitHub repo and it writes the README, draws architecture and database diagrams, and creates context files for AI coding tools.',
     points: [
-      'Go REST API, Python AI workers and a Next.js UI, all on **OpenAPI contracts**, with a **Postgres job queue** between them.',
-      '**RAG pipeline** that pulls entry points and top-ranked files from an import graph into token-budgeted prompts, with JSON-schema output, grounding checks on every cited file and prompt-injection isolation.',
-      'Writes **context packs** (CLAUDE.md, AGENTS.md, Cursor rules) and draws diagrams with a custom SVG layout engine; ER diagrams come from SQL migrations.',
-      'Runs on **AWS EC2** in Docker and on Vercel, deployed by GitHub Actions with OIDC, and monitored with CloudWatch alarms.',
+      'A **Go API** hands work to **Python AI workers** through a **Postgres job queue**, with a Next.js frontend.',
+      'Uses **RAG** to pick the files that matter most, then checks that every file the AI cites really exists.',
+      'Runs on **AWS EC2** in Docker, deployed automatically by GitHub Actions.',
     ],
-    tags: ['Go', 'Python', 'FastAPI', 'Next.js', 'OpenAI', 'PostgreSQL', 'Redis', 'AWS'],
+    tags: ['Go', 'Python', 'Next.js', 'PostgreSQL', 'OpenAI', 'AWS'],
     repo: 'https://github.com/Gitax18/readmely',
     live: 'https://readmely.gitanshu.me',
   },
