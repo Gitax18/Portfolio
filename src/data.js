@@ -11,7 +11,7 @@ export const profile = {
   // Web3Forms access key for the contact form, read from VITE_WEB3FORMS_KEY at build time.
   contactFormKey: import.meta.env.VITE_WEB3FORMS_KEY ?? '',
   about:
-    'I build Go backends and AI products: REST APIs on Postgres, job queues, and LLM pipelines with RAG and structured output. I’m studying for an M.Sc. IT at Dhirubhai Ambani University (formerly DA-IICT) and building Readmely.',
+    'I build Go backends and AI products. I’m doing an M.Sc. IT at Dhirubhai Ambani University and building Readmely.',
 }
 
 // The hero diagram: a request travelling through the layers I build.
@@ -65,11 +65,11 @@ export const projects = [
     live: 'https://itp-salon-queue-project.vercel.app',
   },
   {
-    id: 'gobank',
-    title: 'GoBank',
-    description: 'Banking REST API with JWT auth, accounts and money transfers.',
-    tags: ['Go', 'Fiber', 'PostgreSQL', 'JWT'],
-    repo: 'https://github.com/Gitax18/gobank',
+    id: 'tally',
+    title: 'Tally',
+    description: 'Self-hosted, cookie-free web analytics. Add one line to your site to see visitors, top pages and where traffic comes from, without tracking anyone personally.',
+    tags: ['Go', 'PostgreSQL', 'Next.js', 'Heroku', 'Vercel'],
+    repo: 'https://github.com/Gitax18/tally',
   },
   {
     id: 'socialsync',
