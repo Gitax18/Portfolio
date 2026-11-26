@@ -115,6 +115,7 @@ function ContactForm() {
       if (!json.success) throw new Error(json.message)
       form.reset()
       setStatus('sent')
+      window.umami?.track('contact-form-sent')
     } catch {
       setStatus('error')
       setError('Your message didn’t send. Please try again, or reach me on LinkedIn.')
@@ -197,7 +198,14 @@ export default function App() {
               <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
                 <GithubIcon /> GitHub
               </a>
-              <a className="btn" href={profile.resume} target="_blank" rel="noreferrer">
+              <a
+                className="btn"
+                href={profile.resume}
+                target="_blank"
+                rel="noreferrer"
+                data-umami-event="resume-click"
+                data-umami-event-location="hero"
+              >
                 <ResumeIcon /> Resume
               </a>
             </div>
@@ -330,7 +338,14 @@ export default function App() {
             <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
               <GithubIcon /> GitHub
             </a>
-            <a className="btn" href={profile.resume} target="_blank" rel="noreferrer">
+            <a
+              className="btn"
+              href={profile.resume}
+              target="_blank"
+              rel="noreferrer"
+              data-umami-event="resume-click"
+              data-umami-event-location="contact"
+            >
               <ResumeIcon /> Resume
             </a>
           </div>
