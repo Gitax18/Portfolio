@@ -4,7 +4,7 @@ A minimal one-page portfolio built with React and Vite. It follows the system li
 
 ## Sections
 
-Intro · Experience & education · Projects · Hackathons & achievements · Blog · Skills · Community · Contact
+Intro (with an animated diagram of the backend layers I build), Experience, Projects, Achievements, Writing, Skills, Community, Contact
 
 ## Getting started
 

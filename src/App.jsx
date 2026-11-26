@@ -1,13 +1,4 @@
-import {
-  profile,
-  highlights,
-  experience,
-  projects,
-  achievements,
-  blog,
-  skills,
-  community,
-} from './data'
+import { profile, pipeline, experience, projects, achievements, blog, skills, community } from './data'
 import { ArrowIcon, GithubIcon, LinkedinIcon } from './icons'
 
 const YEAR = new Date().getFullYear()
@@ -16,28 +7,29 @@ const sections = [
   ['experience', 'Experience'],
   ['projects', 'Projects'],
   ['achievements', 'Achievements'],
-  ['blog', 'Blog'],
+  ['blog', 'Writing'],
   ['skills', 'Skills'],
   ['community', 'Community'],
   ['contact', 'Contact'],
 ]
 
-function Tile({ className = '', children }) {
-  return <article className={`tile ${className}`}>{children}</article>
+/* Renders **bold** segments from the plain strings in data.js. */
+function Rich({ text }) {
+  return text.split('**').map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part))
 }
 
 function Section({ id, title, children }) {
   return (
     <section id={id} className="section" aria-labelledby={`${id}-title`}>
-      <h2 id={`${id}-title`} className="section-title">{title}</h2>
-      {children}
+      <h2 id={`${id}-title`}>{title}</h2>
+      <div className="section-body">{children}</div>
     </section>
   )
 }
 
-function Tags({ items }) {
+function Stack({ items, label = 'Tech used' }) {
   return (
-    <ul className="tags">
+    <ul className="stack" aria-label={label}>
       {items.map((t) => (
         <li key={t}>{t}</li>
       ))}
@@ -45,60 +37,65 @@ function Tags({ items }) {
   )
 }
 
-/* One tile, one row per item: title left, detail right. */
-function Rows({ items }) {
+function Points({ items }) {
   return (
-    <Tile className="rows">
-      {items.map((i) => (
-        <div key={i.title ?? i.group} className={`row ${i.url ? 'row-stack' : ''}`}>
-          {i.url ? (
-            <h3>
-              <a className="row-link" href={i.url} target="_blank" rel="noreferrer">
-                {i.title} <ArrowIcon />
-              </a>
-            </h3>
-          ) : (
-            <h3>{i.title ?? i.group}</h3>
-          )}
-          {i.items ? <Tags items={i.items} /> : <p className="muted">{[i.meta, i.text].filter(Boolean).join(' · ')}</p>}
-        </div>
+    <ul className="points">
+      {items.map((p) => (
+        <li key={p}>
+          <Rich text={p} />
+        </li>
       ))}
-    </Tile>
+    </ul>
   )
 }
 
-function Project({ project }) {
+function ProjectLinks({ project }) {
   return (
-    <Tile className="project">
-      <div className="project-head">
-        <h3>{project.title}</h3>
-        {project.status && <span className="status">{project.status}</span>}
-      </div>
-      <p className="muted grow">{project.description}</p>
-      <Tags items={project.tags} />
-      {(project.live || project.repo) && (
-        <div className="actions">
-          {project.live && (
-            <a className="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
-              Live <ArrowIcon />
-            </a>
-          )}
-          {project.repo && (
-            <a className="btn" href={project.repo} target="_blank" rel="noreferrer">
-              <GithubIcon /> Code
-            </a>
-          )}
-        </div>
+    <div className="actions">
+      {project.live && (
+        <a className="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
+          Open {project.title}
+        </a>
       )}
-    </Tile>
+      {project.repo && (
+        <a className="btn" href={project.repo} target="_blank" rel="noreferrer">
+          <GithubIcon /> Code
+        </a>
+      )}
+    </div>
+  )
+}
+
+function Pipeline() {
+  return (
+    <figure className="pipeline">
+      <ol>
+        {pipeline.map((step, i) => (
+          <li key={step.name} style={{ '--i': i }}>
+            <span className="step-name">{step.name}</span>
+            {step.note && <span className="step-note">{step.note}</span>}
+            {step.outputs && (
+              <ul className="outputs">
+                {step.outputs.map((o) => (
+                  <li key={o}>{o}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ol>
+      <figcaption>The layers I build, from the first request to deployment.</figcaption>
+    </figure>
   )
 }
 
 export default function App() {
+  const [featured, ...rest] = projects
+
   return (
     <>
       <header className="nav">
-        <a className="brand" href="#top">GS</a>
+        <a className="brand" href="#top" aria-label="Back to top">GS</a>
         <nav aria-label="Sections">
           <ul>
             {sections.map(([id, label]) => (
@@ -112,15 +109,15 @@ export default function App() {
 
       <main className="page" id="top">
         <section className="hero" aria-label="Introduction">
-          <div className="hero-main">
-            <img className="avatar" src={profile.avatar} alt={`${profile.name}`} width="56" height="56" />
-            <div>
-              <h1>{profile.name}</h1>
-              <p className="muted">{profile.role} · {profile.location}</p>
-            </div>
-          </div>
-          <p className="about">{profile.about}</p>
-          <div className="hero-foot">
+          <div className="hero-text">
+            <img className="avatar" src={profile.avatar} alt="" width="64" height="64" />
+            <h1>
+              <span>Gitanshu</span> <span>Sankhla</span>
+            </h1>
+            <p className="role">
+              {profile.role}, based in {profile.location}
+            </p>
+            <p className="about">{profile.about}</p>
             <div className="actions">
               <a className="btn btn-primary" href={profile.linkedin} target="_blank" rel="noreferrer">
                 <LinkedinIcon /> LinkedIn
@@ -129,64 +126,138 @@ export default function App() {
                 <GithubIcon /> GitHub
               </a>
             </div>
-            <ul className="stats">
-              {highlights.map((h) => (
-                <li key={h.label}>
-                  <strong>{h.value}</strong>
-                  <span className="muted">{h.label}</span>
-                </li>
-              ))}
-            </ul>
           </div>
+          <Pipeline />
         </section>
 
-        <Section id="experience" title="Experience & education">
-          <Rows items={experience} />
+        <Section id="experience" title="Experience">
+          {experience.map((job) => (
+            <article className="job" key={job.company + job.role}>
+              <header className="job-head">
+                <div>
+                  <h3>{job.role}</h3>
+                  <p className="org">
+                    {job.company}, {job.place.toLowerCase()}
+                  </p>
+                </div>
+                <p className="when">
+                  {job.start} to {job.end}
+                </p>
+              </header>
+              <Points items={job.points} />
+              <Stack items={job.stack} />
+            </article>
+          ))}
         </Section>
 
         <Section id="projects" title="Projects">
-          <div className="grid">
-            {projects.map((p) => (
-              <Project key={p.id} project={p} />
+          <article className="featured">
+            <h3>{featured.title}</h3>
+            <p className="lede">{featured.description}</p>
+            <Points items={featured.points} />
+            <Stack items={featured.tags} />
+            <ProjectLinks project={featured} />
+          </article>
+
+          <div className="project-grid">
+            {rest.map((p) => (
+              <article className="project" key={p.id}>
+                <h3>
+                  {p.title}
+                  {p.status && <span className="status">{p.status}</span>}
+                </h3>
+                <p className="muted">{p.description}</p>
+                <Stack items={p.tags} />
+                <div className="text-links">
+                  {p.live && (
+                    <a href={p.live} target="_blank" rel="noreferrer">
+                      Live site
+                    </a>
+                  )}
+                  {p.repo && (
+                    <a href={p.repo} target="_blank" rel="noreferrer">
+                      Code
+                    </a>
+                  )}
+                </div>
+              </article>
             ))}
           </div>
           <a className="more-link" href={profile.github} target="_blank" rel="noreferrer">
-            All repositories on GitHub <ArrowIcon />
+            See all repositories on GitHub
           </a>
         </Section>
 
-        <Section id="achievements" title="Hackathons & achievements">
-          <Rows items={achievements} />
+        <Section id="achievements" title="Achievements">
+          <dl className="rows">
+            {achievements.map((a) => (
+              <div className="row" key={a.title}>
+                <dt>{a.title}</dt>
+                <dd>
+                  <span>{a.text}</span>
+                  {a.link && (
+                    <a className="row-link" href={a.link.url} target="_blank" rel="noreferrer">
+                      {a.link.label} <ArrowIcon />
+                    </a>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Section>
 
-        <Section id="blog" title="Blog">
-          <Rows items={blog} />
+        <Section id="blog" title="Writing">
+          {blog.map((b) => (
+            <a className="post" key={b.url} href={b.url} target="_blank" rel="noreferrer">
+              <span className="post-title">
+                {b.title} <ArrowIcon />
+              </span>
+              <span className="muted">{b.text}</span>
+            </a>
+          ))}
         </Section>
 
         <Section id="skills" title="Skills">
-          <Rows items={skills} />
+          <dl className="rows">
+            {skills.map((s) => (
+              <div className="row" key={s.group}>
+                <dt>{s.group}</dt>
+                <dd>
+                  <Stack items={s.items} label={s.group} />
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Section>
 
         <Section id="community" title="Community">
-          <Rows items={community} />
+          <dl className="rows">
+            {community.map((c) => (
+              <div className="row" key={c.title}>
+                <dt>{c.role}</dt>
+                <dd>
+                  <span className="row-title">{c.title}</span>
+                  {c.text && <span className="muted">{c.text}</span>}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Section>
 
         <Section id="contact" title="Contact">
-          <Tile className="contact">
-            <h3>Let’s build something.</h3>
-            <div className="actions">
-              <a className="btn btn-primary" href={profile.linkedin} target="_blank" rel="noreferrer">
-                <LinkedinIcon /> LinkedIn
-              </a>
-              <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
-                <GithubIcon /> GitHub
-              </a>
-            </div>
-          </Tile>
+          <p className="contact-line">Want to talk about backend or AI work? Reach me on LinkedIn or GitHub.</p>
+          <div className="actions">
+            <a className="btn btn-primary" href={profile.linkedin} target="_blank" rel="noreferrer">
+              <LinkedinIcon /> LinkedIn
+            </a>
+            <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
+              <GithubIcon /> GitHub
+            </a>
+          </div>
         </Section>
       </main>
 
-      <footer className="footer muted">© {YEAR} {profile.name}</footer>
+      <footer className="footer">© {YEAR} {profile.name}</footer>
     </>
   )
 }
